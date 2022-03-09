@@ -31,3 +31,17 @@ const clientes = [
 
 const listaDependentes = [...clientes[0].dependentes, ...clientes[1].dependentes]
 console.log(listaDependentes)
+
+const fichaGuerreiro = {
+    nome: "Aragorn",
+    classe: "guerreiro"
+   }
+   
+   const equipoGuerreiro = {
+    espada: "Andúril",
+    capa: "capa élfica +2"
+   }
+
+   const guerreiro = { ...fichaGuerreiro, ...equipoGuerreiro }
+   console.log(guerreiro)
+   console.log(`O ${guerreiro.nome} é um ${guerreiro.classe} equipado com a espada${guerreiro.espada} e a ${guerreiro.capa}`)
