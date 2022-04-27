@@ -5,11 +5,15 @@ const texto = 'São geralmente recuperados a partir de um objeto [FileList](http
 
 function extraiLink(texto) {
   const regex = /\[([^\]]*)\]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
-  const linksExtraidos = texto.match(regex);
-  console.log(linksExtraidos);
+  const arrayResultados = [];
+  let temp;
+
+  while((temp = regex.exec(texto)) !== null) {
+    arrayResultados.push({ [temp[1]]: temp[2] })
+  } 
+  return arrayResultados;
 }
 
-extraiLink(texto);
 
 function trataErro(erro) {
   throw new Error(chalk.red(erro.code, 'não há arquivo no caminho'));
@@ -19,17 +23,11 @@ async function pegaArquivo(caminhoDoArquivo) {
   const encoding = 'utf-8';
   try {
     const texto = await fs.promises.readFile(caminhoDoArquivo, encoding)
-    console.log(chalk.green(texto))
+    console.log(extraiLink(texto))
   } catch(erro) {
     trataErro(erro);
   }
 }
 
-// pegaArquivo('./arquivos/texto1.md');
+pegaArquivo('./arquivos/texto1.md');
 
-// [
-//   {
-//     [nomeDoLink]: (url),
-//     statusCode: 200
-//   }
-// ]
